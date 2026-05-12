@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+/* マッキーペン風：地名・コメントに適用 */
+.font-marker {
+  font-family: 'Yusei Magic', sans-serif;
+}
+
+@keyframes diceRoll {
+  0%   { transform: rotate(-8deg) scale(1.05); }
+  50%  { transform: rotate(8deg) scale(0.97); }
+  100% { transform: rotate(-8deg) scale(1.05); }
+}
+@keyframes flash {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+@keyframes popIn {
+  0%   { transform: scale(0.9); opacity: 0; }
+  70%  { transform: scale(1.03); }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes rollDiceAnim {
+  0%   { transform: perspective(200px) rotateX(-8deg) rotateY(8deg) scale(1.05); }
+  25%  { transform: perspective(200px) rotateX(8deg) rotateY(-8deg) scale(0.97); }
+  50%  { transform: perspective(200px) rotateX(-6deg) rotateY(-6deg) scale(1.03); }
+  75%  { transform: perspective(200px) rotateX(6deg) rotateY(6deg) scale(0.98); }
+  100% { transform: perspective(200px) rotateX(-8deg) rotateY(8deg) scale(1.05); }
+}
