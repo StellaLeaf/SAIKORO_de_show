@@ -53,4 +53,11 @@ export const TRANSPORTS = [
     defunct: false,
     note: "全国の特急列車",
   },
+  {
+    id: 7,
+    name: "一回休み",
+    icon: "🏨",
+    defunct: false,
+    note: "めずらしく休憩",
+  },
 ];

@@ -1,5 +1,5 @@
-// src/components/DiceFace.jsx
-// ボード上の固定サイコロ（白・スタンダード）
+// src/components/RollDice.jsx
+// 振るサイコロ（白・正方形・赤い点）
 
 const DOT_PATTERNS = {
   1: [[1, 1]],
@@ -10,28 +10,23 @@ const DOT_PATTERNS = {
   6: [[0, 0], [0, 2], [1, 0], [1, 2], [2, 0], [2, 2]],
 };
 
-export default function DiceFace({ value, size = "md" }) {
-  const dots     = value ? DOT_PATTERNS[value] : [];
-  const dotColor = value === 1 ? "#c0392b" : "#1a1a1a";
-  const isSmall  = size === "sm";
-  const boxSize  = isSmall ? 55 : 80;
-  const padding  = isSmall ? 4  : 12;
-  const gap      = isSmall ? 2  : 5;
+export default function RollDice({ value, rolling }) {
+  const dots = value ? DOT_PATTERNS[value] : [];
 
   return (
     <div style={{
-      width:               boxSize,
-      height:              boxSize,
+      width:               88,
+      height:              88,
       flexShrink:          0,
       background:          "#ffffff",
-      borderRadius:        isSmall ? 6 : 10,
-      border:              "1.5px solid #ccc",
-      boxShadow:           "1px 2px 4px rgba(0,0,0,0.15)",
+      borderRadius:        0,
+      border:              "none",
       display:             "grid",
-      gridTemplateColumns: "repeat(3, 1fr)",
-      padding:             padding,
-      gap:                 gap,
+      gridTemplateColumns: "repeat(3, 2fr)",
+      padding:             10,
+      gap:                 3,
       position:            "relative",
+      animation:           rolling ? "rollDiceAnim 0.5s ease-in-out infinite" : "none",
     }}>
       {[...Array(9)].map((_, i) => {
         const row    = Math.floor(i / 3);
@@ -42,7 +37,7 @@ export default function DiceFace({ value, size = "md" }) {
             width:        "100%",
             aspectRatio:  "1",
             borderRadius: "50%",
-            background:   hasDot ? dotColor : "transparent",
+            background:   hasDot ? "#c0392b" : "transparent",
           }} />
         );
       })}
@@ -53,9 +48,9 @@ export default function DiceFace({ value, size = "md" }) {
           display:        "flex",
           alignItems:     "center",
           justifyContent: "center",
-          fontSize:       isSmall ? 16 : 26,
+          fontSize:       32,
           fontWeight:     900,
-          color:          "#ccc",
+          color:          "#c0392b",
         }}>?</div>
       )}
     </div>

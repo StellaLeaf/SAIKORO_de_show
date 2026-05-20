@@ -41,7 +41,7 @@ export const useDice = () => {
     const wait = (ms) => new Promise(r => setTimeout(r, ms));
     for (let i = 0; i < 10; i++) {
       update({ diceValue: Math.floor(Math.random() * 6) + 1 });
-      await wait(80);
+      await wait(160);
     }
     //確定振り目
     const finalValue = Math.floor(Math.random() * 6) + 1;

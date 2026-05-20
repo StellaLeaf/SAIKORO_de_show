@@ -20,9 +20,9 @@
   100% { transform: scale(1); opacity: 1; }
 }
 @keyframes rollDiceAnim {
-  0%   { transform: perspective(200px) rotateX(-8deg) rotateY(8deg) scale(1.05); }
-  25%  { transform: perspective(200px) rotateX(8deg) rotateY(-8deg) scale(0.97); }
-  50%  { transform: perspective(200px) rotateX(-6deg) rotateY(-6deg) scale(1.03); }
-  75%  { transform: perspective(200px) rotateX(6deg) rotateY(6deg) scale(0.98); }
-  100% { transform: perspective(200px) rotateX(-8deg) rotateY(8deg) scale(1.05); }
+  0%   { transform: rotate(0deg)   scale(1);    }
+  25%  { transform: rotate(12deg)  scale(1.05); }
+  50%  { transform: rotate(-8deg)  scale(0.95); }
+  75%  { transform: rotate(10deg)  scale(1.05); }
+  100% { transform: rotate(0deg)   scale(1);    }
 }
