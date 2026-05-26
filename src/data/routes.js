@@ -29,30 +29,24 @@ export const getPlayableOrigins = () =>
 
 // 出発地から最大6件のルートを取得
 // 手書き(manual)優先 → 本家(saikoro*)で補完 → GTFSで補完
-export const getRoutesByOrigin = (origin) => {
+export const getRoutesByOrigin = (origin, options = {}) => {
+  const {
+    hideDefunct = true,
+    useGtfsFill = true,
+  } = options;
   const pick = (seriesIdFilter) =>
     ROUTES.filter(
       r =>
         r.origin === origin &&
         seriesIdFilter(r.seriesId) &&
-        !r.defunct
+        (!r.defunct || !hideDefunct)
     );
 
-  const manual  = pick(s => s === "manual");
-  if (manual.length >= 6) return manual.slice(0, 6);
+  const manual   = pick(s => s === "manual");
+  const original = pick(s => s.startsWith("saikoro"));
+  const gtfs     = useGtfsFill ? pick(s => s === "gtfs") : [];
 
-  const used = new Set(manual.map(r => r.destination));
-  const original = pick(s => s.startsWith("saikoro"))
-    .filter(r => !used.has(r.destination));
-
-  const combined = [...manual, ...original];
-  if (combined.length >= 6) return combined.slice(0, 6);
-
-  const usedAll = new Set(combined.map(r => r.destination));
-  const gtfs = pick(s => s === "gtfs")
-    .filter(r => !usedAll.has(r.destination));
-
-  return [...combined, ...gtfs].slice(0, 6);
+  return [...manual, ...original, ...gtfs].slice(0, 6);
 };
 
 // サイコロの目から1件取得（index = diceNum - 1）
