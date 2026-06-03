@@ -29,33 +29,57 @@ export const useDice = () => {
   }, []);
   //origin以外を初期化
   const setOrigin = useCallback((origin) => {
-    setState({...INITIAL_STATE, origin: origin });
+    setState(prev => ({
+      ...INITIAL_STATE,
+      origin: origin,
+      history: prev.history,  // 履歴維持
+    }));
   }, []);
 
   const roll = useCallback(async () => {
-    //連打防止
+    // 連打防止
     if (state.rolling || state.phase === PHASE.DONE) return;
-    //開始通告
-    update({ rolling: true, diceValue: null, selectedRoute: null })
-    //80msごとにdiceValueを1~6で10回ランダム
+
+    // 開始通告
+    update({ rolling: true, diceValue: null, selectedRoute: null });
+
+    // アニメーション（160msごとに1〜6でランダム表示）
     const wait = (ms) => new Promise(r => setTimeout(r, ms));
     for (let i = 0; i < 10; i++) {
       update({ diceValue: Math.floor(Math.random() * 6) + 1 });
       await wait(160);
     }
-    //確定振り目
+
+    // 確定振り目
     const finalValue = Math.floor(Math.random() * 6) + 1;
-    //確定振り目の行き先
     const route      = getRoute(state.origin, finalValue);
-    //一致する移動パターンの検索
-    const transport = TRANSPORTS.find(t => t.id === route.transportId);
-    //リセット
-    update ({
-      rolling:      false,
-      diceValue:    finalValue,
-      selectedRoute:route,
-      phase:        PHASE.DONE,
-      history:      [...state.history, { route, transport }].slice(-10)
+    const transport  = TRANSPORTS.find(t => t.id === route.transportId);
+
+    // 新しい leg を作成
+    const newLeg = { route, transport, diceValue: finalValue };
+
+    // 履歴を旅単位で更新
+    const lastJourney  = state.history[state.history.length - 1];
+    const isSameOrigin = lastJourney && lastJourney.origin === state.origin;
+
+    const newHistory = isSameOrigin
+      ? state.history.map((j, i) =>
+          i === state.history.length - 1
+            ? { ...j, legs: [...j.legs, newLeg] }
+            : j
+        )
+      : [...state.history, { origin: state.origin, legs: [newLeg] }];
+
+    // 旅は最大10本キープ
+    const trimmedHistory = newHistory.slice(-10);
+
+    // state 確定
+    update({
+      rolling:       false,
+      diceValue:     finalValue,
+      selectedRoute: route,
+      phase:         PHASE.DONE,
+      history:       trimmedHistory,
     });
   }, [state, update]);
 

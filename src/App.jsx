@@ -1,6 +1,14 @@
 import { useDice, PHASE } from "./hooks/useDice";
 import DiceFace from "./components/DiceFace";
 import RollDice from "./components/RollDice"; 
+import { getRoutesByOrigin, getRouteKey } from "./data/routes";
+
+// === 動作確認用（後で消す） ===
+console.log("=== getRoutesByOrigin 動作確認 ===");
+console.log("通常(東京):",     getRoutesByOrigin("東京"));
+console.log("廃止含む(東京):", getRoutesByOrigin("東京", { hideDefunct: false }));
+console.log("GTFSなし(東京):", getRoutesByOrigin("東京", { useGtfsFill: false }));
+console.log("===========================");
 
 const ROW_COLORS = [
   "#f4a7b9", // 1: ピンク
@@ -56,7 +64,7 @@ export default function App() {
         const isDecided  = dice.phase === PHASE.DONE && !isSelected;
         return (
           <div
-            key={route.id}
+            key={getRouteKey(route)}
             className="flex items-stretch rounded-xl overflow-hidden transition-all duration-300"
             style={{
               background: ROW_COLORS[i],
@@ -71,7 +79,7 @@ export default function App() {
           {/* サイコロ */}
           <div className="flex items-center justify-center"
             style={{ width: 72, padding: "6px 0px 6px 6px" }}>
-            <DiceFace value={route.diceNum} size="sm" />
+            <DiceFace value={i + 1} size="sm" />
           </div>
           {/* テキストエリア */}
             <div
@@ -109,25 +117,7 @@ export default function App() {
     {/* サイコロ＋ボタン */}
     <section className="flex flex-col items-center gap-4 mb-5">
       <RollDice value={dice.diceValue} rolling={dice.rolling} />
-      {dice.phase === PHASE.DONE && dice.selectedRoute && (
-        <div
-          className="w-full rounded-xl p-4 text-center"
-          style={{ background: ROW_COLORS[(dice.selectedRoute.diceNum - 1)] }}
-        >
-          <div className="text-xs font-bold text-zinc-600 mb-1">決定！</div>
-          <div className="text-2xl font-black text-zinc-900">
-            {dice.selectedRoute.destination} へ！
-          </div>
-          <div className="text-xs text-zinc-600 mt-1">
-            {dice.selectedRoute.comment}
-          </div>
-          {dice.selectedRoute.defunctNote && (
-            <div className="text-xs text-red-600 mt-1 font-bold">
-              ※{dice.selectedRoute.defunctNote}
-            </div>
-          )}
-        </div>
-      )}
+      
       <button
           onClick={dice.phase === PHASE.DONE ? dice.reset : dice.roll}
           disabled={dice.rolling}
@@ -149,18 +139,24 @@ export default function App() {
         style={{ background: "rgba(0,0,0,0.06)" }}
       >
         <p className="text-[10px] text-zinc-500 tracking-widest mb-2">HISTORY</p>
-        <div className="flex flex-wrap gap-2">
-          {dice.history.map((h, i) => (
-            <span
-              key={i}
-              className="text-xs px-3 py-1 rounded-full font-bold"
-              style={{
-                background: ROW_COLORS[(h.route.diceNum - 1)] + "cc",
-                color: "#1a1a1a",
-              }}
+        <div className="flex flex-col gap-1">
+          {dice.history.map((journey, ji) => (
+            <p
+              key={ji}
+              className="text-sm font-bold text-zinc-800 leading-relaxed"
             >
-              {h.transport?.icon} {h.route.destination}
-            </span>
+              {journey.origin}
+              {journey.legs.map((leg, li) => (
+                <span key={li}>
+                  {li === 0 ? (
+                    <span className="text-zinc-500 mx-0.5">→</span>
+                  ) : (
+                    <span className="text-zinc-400">, </span>
+                  )}
+                  {leg.route.destination}
+                </span>
+              ))}
+            </p>
           ))}
         </div>
       </section>
