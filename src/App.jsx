@@ -2,6 +2,7 @@ import { useDice, PHASE } from "./hooks/useDice";
 import DiceFace from "./components/DiceFace";
 import RollDice from "./components/RollDice"; 
 import { getRoutesByOrigin, getRouteKey } from "./data/routes";
+import { useState } from "react";
 
 // === 動作確認用（後で消す） ===
 console.log("=== getRoutesByOrigin 動作確認 ===");
@@ -19,9 +20,25 @@ const ROW_COLORS = [
   "#a0e4a0", // 6: 緑
 ];
 
+// 廃止ルートの見た目設定
+const DEFUNCT_STYLE = {
+  // 行本体の左端赤帯
+  bandWidth: 8,           // 帯の太さ（px）
+  bandColor: "#ff0000",   // 帯の色（Tailwind red-600）
+
+  // 注釈ボックス
+  noteBg:     "#fef2f2",  // 背景（red-50）
+  noteBorder: "#fca5a5",  // ボーダー（red-300）
+  noteText:   "#991b1b",  // 文字（red-800）
+
+  // 行全体の透明度
+  rowOpacity: 0.55,
+};
+
 export default function App() {
   const dice = useDice();
-
+  console.log("hideDefunct:", dice.hideDefunct);
+  const [openedKey, setOpenedKey] = useState(null);
   return (
     <div
       className="min-h-screen p-4 max-w-lg mx-auto"
@@ -57,59 +74,106 @@ export default function App() {
         </button>
       ))}
     </section>
+    {/* 出発地選択の下あたりに追加 */}
+    <button
+      onClick={() => dice.setHideDefunct(!dice.hideDefunct)}
+      className="text-xs px-2 py-1 rounded border"
+      style={{ background: "transparent", color: "#888" }}
+    >
+      廃止: {dice.hideDefunct ? "非表示" : "表示中"}
+    </button>
     {/* ボード本体 */}
     <section className="flex flex-col gap-2 mb-5">
       {dice.currentRoutes.map((route, i) => {
-        const isSelected = dice.selectedRoute?.id === route.id;
+        const isSelected = dice.selectedRoute
+          ? getRouteKey(dice.selectedRoute) === getRouteKey(route)
+          : false;
         const isDecided  = dice.phase === PHASE.DONE && !isSelected;
+        const isDefunct  = route.defunct;
+        const routeKey   = getRouteKey(route);
+        const isOpen     = openedKey === routeKey;
+
         return (
-          <div
-            key={getRouteKey(route)}
-            className="flex items-stretch rounded-xl overflow-hidden transition-all duration-300"
-            style={{
-              background: ROW_COLORS[i],
-              height:     72,
-              opacity:    isDecided ? 0.45 : 1,
-              boxShadow:  isSelected
-                ? "0 0 0 3px #1a1a1a, 0 4px 12px rgba(0,0,0,0.3)"
-                : "0 2px 4px rgba(0,0,0,0.1)",
-              transform:  isSelected ? "scale(1.02)" : "scale(1)",
-            }}
-          >
-          {/* サイコロ */}
-          <div className="flex items-center justify-center"
-            style={{ width: 72, padding: "6px 0px 6px 6px" }}>
-            <DiceFace value={i + 1} size="sm" />
-          </div>
-          {/* テキストエリア */}
+          <div key={routeKey} className="flex flex-col">
+            {/* 行本体 */}
             <div
-              className="flex-1 flex items-center"
-              style={{ padding: "4px 4px 4px 0px", overflow: "hidden", height: "100%" }}
+              onClick={() => {
+                if (isDefunct) {
+                  setOpenedKey(isOpen ? null : routeKey);
+                }
+              }}
+              className="flex items-stretch rounded-xl overflow-hidden transition-all duration-300"
+              style={{
+                background: ROW_COLORS[i],
+                height:     72,
+                opacity:    isDecided ? 0.45 : (isDefunct ? DEFUNCT_STYLE.rowOpacity : 1),
+                boxShadow:  isSelected
+                  ? "0 0 0 3px #1a1a1a, 0 4px 12px rgba(0,0,0,0.3)"
+                  : "0 2px 4px rgba(0,0,0,0.1)",
+                transform:  isSelected ? "scale(1.02)" : "scale(1)",
+                cursor:     isDefunct ? "pointer" : "default",
+              }}
             >
-              <svg
-                width="100%"
-                height="100%"
-                viewBox="0 0 600 88"
-                preserveAspectRatio="none"
+              {/* 廃止マーカー（左端赤帯） */}
+              {isDefunct && (
+                <div
+                  style={{
+                    width:      DEFUNCT_STYLE.bandWidth,
+                    background: DEFUNCT_STYLE.bandColor,
+                    flexShrink: 0,
+                  }}
+                />
+              )}
+              {/* サイコロ */}
+              <div className="flex items-center justify-center"
+                style={{ width: 72, padding: "6px 0px 6px 6px" }}>
+                <DiceFace value={i + 1} size="sm" />
+              </div>
+              {/* テキストエリア */}
+              <div
+                className="flex-1 flex items-center"
+                style={{ padding: "4px 4px 4px 0px", overflow: "hidden", height: "100%" }}
               >
-                <text
-                  x="0"
-                  y="78"
-                  dominantBaseline="auto"
-                  fontFamily="'Yusei Magic', sans-serif"
-                  fontWeight="1200"
-                  fill="#1a1a1a"
-                  fontSize="88"
-                  textLength="600"
-                  lengthAdjust="spacingAndGlyphs"
-                  stroke="#1a1a1a"
-                  strokeWidth="2.5"
-                  paintOrder="stroke fill"
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 600 88"
+                  preserveAspectRatio="none"
                 >
-                {route.comment}   {route.destination}
-                </text>
-              </svg>
+                  <text
+                    x="0"
+                    y="78"
+                    dominantBaseline="auto"
+                    fontFamily="'Yusei Magic', sans-serif"
+                    fontWeight="1200"
+                    fill="#1a1a1a"
+                    fontSize="88"
+                    textLength="600"
+                    lengthAdjust="spacingAndGlyphs"
+                    stroke="#1a1a1a"
+                    strokeWidth="2.5"
+                    paintOrder="stroke fill"
+                    textDecoration={isDefunct ? "line-through" : "none"}
+                  >
+                    {route.comment}   {route.destination}
+                  </text>
+                </svg>
+              </div>
             </div>
+
+            {/* 廃止注釈（折りたたみ展開） */}
+            {isDefunct && isOpen && route.defunctNote && (
+              <div
+                className="px-3 py-2 mt-1 rounded-lg text-xs"
+                style={{
+                  background: DEFUNCT_STYLE.noteBg,
+                  border:     `1px solid ${DEFUNCT_STYLE.noteBorder}`,
+                  color:      DEFUNCT_STYLE.noteText,
+                }}
+              >
+                ⚠️ <strong>廃止:</strong> {route.defunctNote}
+              </div>
+            )}
           </div>
         );
       })}

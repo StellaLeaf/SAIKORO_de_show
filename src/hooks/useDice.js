@@ -18,6 +18,7 @@ const INITIAL_STATE = {
   rolling:      false,
   selectedRoute:null,
   history:      [],
+  hideDefunct:  true,  // ←（デフォルトは廃止非表示）
 };
 
 export const useDice = () => {
@@ -36,6 +37,10 @@ export const useDice = () => {
     }));
   }, []);
 
+  const setHideDefunct = useCallback((value) => {
+    setState(prev => ({ ...prev, hideDefunct: value }));
+  }, []);
+
   const roll = useCallback(async () => {
     // 連打防止
     if (state.rolling || state.phase === PHASE.DONE) return;
@@ -52,7 +57,7 @@ export const useDice = () => {
 
     // 確定振り目
     const finalValue = Math.floor(Math.random() * 6) + 1;
-    const route      = getRoute(state.origin, finalValue);
+    const route = getRoute(state.origin, finalValue, { hideDefunct: state.hideDefunct });
     const transport  = TRANSPORTS.find(t => t.id === route.transportId);
 
     // 新しい leg を作成
@@ -84,14 +89,21 @@ export const useDice = () => {
   }, [state, update]);
 
   const reset = useCallback(() => {
-    setState({...INITIAL_STATE, origin: state.origin, history: state.history});
-  }, [state.origin, state.history]);
-  const currentRoutes = getRoutesByOrigin(state.origin);
+    setState(prev => ({
+      ...INITIAL_STATE,
+      origin:      prev.origin,
+      history:     prev.history,
+      hideDefunct: prev.hideDefunct,  // ← 設定維持
+    }));
+  }, []); 
+  const currentRoutes = getRoutesByOrigin(state.origin, {
+    hideDefunct: state.hideDefunct,
+  });
   const selectedTransport = state.selectedRoute
     ? TRANSPORTS.find(t => t.id === state.selectedRoute.transportId)
     : null;
-    
-    return {
+  
+  return {
     phase:             state.phase,
     origin:            state.origin,
     diceValue:         state.diceValue,
@@ -100,7 +112,9 @@ export const useDice = () => {
     selectedTransport,
     currentRoutes,
     history:           state.history,
+    hideDefunct:       state.hideDefunct,  // ← 追加
     setOrigin,
+    setHideDefunct,                         // ← 追加
     roll,
     reset,
   };

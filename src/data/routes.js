@@ -50,8 +50,8 @@ export const getRoutesByOrigin = (origin, options = {}) => {
 };
 
 // サイコロの目から1件取得（index = diceNum - 1）
-export const getRoute = (origin, diceNum) =>
-  getRoutesByOrigin(origin)[diceNum - 1];
+export const getRoute = (origin, diceNum, options) =>
+  getRoutesByOrigin(origin, options)[diceNum - 1];
 
 // 地域フィルター
 export const filterByRegion = (region) =>
