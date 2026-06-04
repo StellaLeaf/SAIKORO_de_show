@@ -1,15 +1,8 @@
 import { useDice, PHASE } from "./hooks/useDice";
 import DiceFace from "./components/DiceFace";
 import RollDice from "./components/RollDice"; 
-import { getRoutesByOrigin, getRouteKey } from "./data/routes";
+import { getRouteKey } from "./data/routes";
 import { useState } from "react";
-
-// === 動作確認用（後で消す） ===
-console.log("=== getRoutesByOrigin 動作確認 ===");
-console.log("通常(東京):",     getRoutesByOrigin("東京"));
-console.log("廃止含む(東京):", getRoutesByOrigin("東京", { hideDefunct: false }));
-console.log("GTFSなし(東京):", getRoutesByOrigin("東京", { useGtfsFill: false }));
-console.log("===========================");
 
 const ROW_COLORS = [
   "#f4a7b9", // 1: ピンク
@@ -50,10 +43,10 @@ export default function App() {
         className="text-3xl font-black tracking-widest"
         style={{ color: "#1a1a1a" }}
       >
-        サイコロでしょう
-      </h1>
-      <p className="text-xl text-zinc-400 mt-1 tracking-widest">
         SAIKORO de show
+      </h1>
+      <p className="text-l text-zinc-400 mt-1 tracking-widest">
+        How do you like dice?
       </p>
     </header>
     {/* 出発地選択 */}
@@ -74,14 +67,31 @@ export default function App() {
         </button>
       ))}
     </section>
-    {/* 出発地選択の下あたりに追加 */}
-    <button
-      onClick={() => dice.setHideDefunct(!dice.hideDefunct)}
-      className="text-xs px-2 py-1 rounded border"
-      style={{ background: "transparent", color: "#888" }}
-    >
-      廃止: {dice.hideDefunct ? "非表示" : "表示中"}
-    </button>
+    <section className="mb-4 flex gap-2 justify-center flex-wrap">
+      {/* 廃止表示トグル */}
+      <div className="flex justify-center mt-2">
+        <button
+          onClick={() => dice.setHideDefunct(!dice.hideDefunct)}
+          className="flex items-center gap-2 px-3 py-1 rounded-full border text-xs transition-all"
+          style={{
+            background: dice.hideDefunct ? "#fff" : "#1a1a1a",
+            color:      dice.hideDefunct ? "#888" : "#f5ddd5",
+            borderColor: dice.hideDefunct ? "#bbb" : "#1a1a1a",
+            fontWeight: 600,
+          }}
+        >
+          <span
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: "50%",
+              background: dice.hideDefunct ? "#bbb" : "#dc2626",
+            }}
+          />
+          廃止
+        </button>
+      </div>
+    </section>
     {/* ボード本体 */}
     <section className="flex flex-col gap-2 mb-5">
       {dice.currentRoutes.map((route, i) => {

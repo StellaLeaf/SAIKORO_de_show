@@ -33,7 +33,8 @@ export const useDice = () => {
     setState(prev => ({
       ...INITIAL_STATE,
       origin: origin,
-      history: prev.history,  // 履歴維持
+      history: prev.history,
+      hideDefunct: prev.hideDefunct,  // ← 追加！！
     }));
   }, []);
 
