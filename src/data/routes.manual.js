@@ -2,16 +2,15 @@
 // 自作ルートデータ（手動メンテナンス）
 // ============================================================
 export const ROUTES_MANUAL = [
-
-  // ============================================================
-  // 東京発
-  // ============================================================
-  { id:1,  seriesId:"manual", origin:"東京",   destination:"札幌",   prefecture:"北海道",   region:"北海道",   lat:43.0642, lng:141.3469, transportId:1, comment:"とりあえず北へ向かう",         defunct:false, defunctNote:null },
-  { id:2,  seriesId:"manual", origin:"東京",   destination:"仙台",   prefecture:"宮城県",   region:"東北",     lat:38.2688, lng:140.8721, transportId:2, comment:"新幹線でサクッと東北へ",       defunct:false, defunctNote:null },
-  { id:3,  seriesId:"manual", origin:"東京",   destination:"大阪",   prefecture:"大阪府",   region:"近畿",     lat:34.6937, lng:135.5023, transportId:3, comment:"深夜バスで関西へ",             defunct:true, defunctNote:"廃止したよーーー"},
-  { id:4,  seriesId:"manual", origin:"東京",   destination:"苫小牧", prefecture:"北海道",   region:"北海道",   lat:42.6333, lng:141.6044, transportId:4, comment:"太平洋をひと晩かけて渡る",     defunct:false, defunctNote:null },
-  { id:5,  seriesId:"manual", origin:"東京",   destination:"出雲市", prefecture:"島根県",   region:"中国",     lat:35.3670, lng:132.7550, transportId:5, comment:"サンライズで縁結びの地へ",     defunct:false, defunctNote:null },
-  { id:6,  seriesId:"manual", origin:"東京",   destination:"博多",   prefecture:"福岡県",   region:"九州沖縄", lat:33.5904, lng:130.4017, transportId:2, comment:"この際遠くへ 新幹線で一気に",  defunct:false, defunctNote:null },
+  // // ============================================================
+  // // 東京発
+  // // ============================================================
+  // { id:1,  seriesId:"manual", origin:"東京",   destination:"札幌",   prefecture:"北海道",   region:"北海道",   lat:43.0642, lng:141.3469, transportId:1, comment:"とりあえず北へ向かう",         defunct:false, defunctNote:null },
+  // { id:2,  seriesId:"manual", origin:"東京",   destination:"仙台",   prefecture:"宮城県",   region:"東北",     lat:38.2688, lng:140.8721, transportId:2, comment:"新幹線でサクッと東北へ",       defunct:false, defunctNote:null },
+  // { id:3,  seriesId:"manual", origin:"東京",   destination:"大阪",   prefecture:"大阪府",   region:"近畿",     lat:34.6937, lng:135.5023, transportId:3, comment:"深夜バスで関西へ",             defunct:true, defunctNote:"廃止したよーーー"},
+  // { id:4,  seriesId:"manual", origin:"東京",   destination:"苫小牧", prefecture:"北海道",   region:"北海道",   lat:42.6333, lng:141.6044, transportId:4, comment:"太平洋をひと晩かけて渡る",     defunct:false, defunctNote:null },
+  // { id:5,  seriesId:"manual", origin:"東京",   destination:"出雲市", prefecture:"島根県",   region:"中国",     lat:35.3670, lng:132.7550, transportId:5, comment:"サンライズで縁結びの地へ",     defunct:false, defunctNote:null },
+  // { id:6,  seriesId:"manual", origin:"東京",   destination:"博多",   prefecture:"福岡県",   region:"九州沖縄", lat:33.5904, lng:130.4017, transportId:2, comment:"この際遠くへ 新幹線で一気に",  defunct:false, defunctNote:null },
 
   // ============================================================
   // 大阪発

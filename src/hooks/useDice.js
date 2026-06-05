@@ -1,9 +1,9 @@
 // 必要なものをimportする
 // ReactからuseStateとuseCallbackを使う
-// ../data/routes から getRoutesByOrigin と getRoute を使う
+// ../data/routes から getRoutesByOriginを使う
 // ../data/transports から TRANSPORTS を使う
-import {useState, useCallback} from "react";
-import { getRoutesByOrigin, getRoute } from "../data/routes";
+import {useState, useCallback, useMemo} from "react";
+import { getRoutesByOrigin} from "../data/routes";
 import { TRANSPORTS } from "../data/transports";
 //PHASEの定義
 export const PHASE = {
@@ -41,6 +41,12 @@ export const useDice = () => {
   const setHideDefunct = useCallback((value) => {
     setState(prev => ({ ...prev, hideDefunct: value }));
   }, []);
+  
+  // useDice 内でメモ化
+  const currentRoutes = useMemo(
+    () => getRoutesByOrigin(state.origin, { hideDefunct: state.hideDefunct }),
+    [state.origin, state.hideDefunct]
+  );
 
   const roll = useCallback(async () => {
     // 連打防止
@@ -58,7 +64,7 @@ export const useDice = () => {
 
     // 確定振り目
     const finalValue = Math.floor(Math.random() * 6) + 1;
-    const route = getRoute(state.origin, finalValue, { hideDefunct: state.hideDefunct });
+    const route = currentRoutes[finalValue - 1];
     const transport  = TRANSPORTS.find(t => t.id === route.transportId);
 
     // 新しい leg を作成
@@ -87,7 +93,7 @@ export const useDice = () => {
       phase:         PHASE.DONE,
       history:       trimmedHistory,
     });
-  }, [state, update]);
+  }, [state, update, currentRoutes]);
 
   const reset = useCallback(() => {
     setState(prev => ({
@@ -97,9 +103,6 @@ export const useDice = () => {
       hideDefunct: prev.hideDefunct,  // ← 設定維持
     }));
   }, []); 
-  const currentRoutes = getRoutesByOrigin(state.origin, {
-    hideDefunct: state.hideDefunct,
-  });
   const selectedTransport = state.selectedRoute
     ? TRANSPORTS.find(t => t.id === state.selectedRoute.transportId)
     : null;

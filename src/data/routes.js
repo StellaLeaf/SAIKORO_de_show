@@ -41,12 +41,15 @@ export const getRoutesByOrigin = (origin, options = {}) => {
         seriesIdFilter(r.seriesId) &&
         (!r.defunct || !hideDefunct)
     );
-
   const manual   = pick(s => s === "manual");
   const original = pick(s => s.startsWith("saikoro"));
   const gtfs     = useGtfsFill ? pick(s => s === "gtfs") : [];
 
-  return [...manual, ...original, ...gtfs].slice(0, 6);
+  // original 内だけシャッフル
+  const shuffledOriginal = [...original].sort(() => Math.random() - 0.5);
+
+  return [...manual, ...shuffledOriginal, ...gtfs].slice(0, 6);
+
 };
 
 // サイコロの目から1件取得（index = diceNum - 1）
