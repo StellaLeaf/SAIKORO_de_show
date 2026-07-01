@@ -40,19 +40,19 @@ export const ROUTES_ORIGINAL = [
   { id:19, seriesId:"saikoro1", origin:"小倉",   destination:"東京",           prefecture:"東京都",   region:"関東",     lat:35.6812, lng:139.7671, transportId:5, comment:"ふりだしに戻る",                   defunct:true,  defunctNote:"九州発着の寝台列車は全廃" },
   { id:20, seriesId:"saikoro1", origin:"小倉",   destination:"出雲",           prefecture:"島根県",   region:"中国",     lat:35.3670, lng:132.7550, transportId:6, comment:"未知のまち",                       defunct:false, defunctNote:null },
   { id:21, seriesId:"saikoro1", origin:"小倉",   destination:"名古屋",         prefecture:"愛知県",   region:"東海",     lat:35.1815, lng:136.9066, transportId:3, comment:"地獄の深夜バス「げんかい号」",     defunct:true,  defunctNote:"1997年廃止。代替は「どんたく号」が小倉経由で現存" },
-  { id:22, seriesId:"saikoro1", origin:"小倉",   destination:"小倉東急イン",   prefecture:"福岡県",   region:"九州沖縄", lat:33.8834, lng:130.8752, transportId:7, comment:"スタッフも疲れたここで一泊",       defunct:false, defunctNote:null },
+  { id:22, seriesId:"saikoro1", origin:"小倉",   destination:"一泊",          prefecture:"福岡県",   region:"九州沖縄", lat:33.8834, lng:130.8752, transportId:7, comment:"スタッフも疲れたここで一泊",       defunct:false, defunctNote:null },
   { id:23, seriesId:"saikoro1", origin:"小倉",   destination:"大阪",           prefecture:"大阪府",   region:"近畿",     lat:34.6937, lng:135.5023, transportId:2, comment:"案外いいかも",                     defunct:false, defunctNote:null },
   { id:24, seriesId:"saikoro1", origin:"小倉",   destination:"千歳",           prefecture:"北海道",   region:"北海道",   lat:42.8233, lng:141.6511, transportId:1, comment:"夢の福岡発最終便",                 defunct:false, defunctNote:null },
 
   // ============================================================
   // Leg 1-5  新大阪発
   // ============================================================
-  { id:25, seriesId:"saikoro1", origin:"新大阪", destination:"東京",           prefecture:"東京都",   region:"関東",     lat:35.6812, lng:139.7671, transportId:5, comment:"寝台特急「あさかぜ」",             defunct:true,  defunctNote:"2005年廃止" },
-  { id:26, seriesId:"saikoro1", origin:"新大阪", destination:"新潟",           prefecture:"新潟県",   region:"甲信越",   lat:37.9161, lng:139.0364, transportId:5, comment:"寝台急行「きたぐに」",             defunct:true,  defunctNote:"2013年廃止" },
-  { id:27, seriesId:"saikoro1", origin:"新大阪", destination:"長野",           prefecture:"長野県",   region:"甲信越",   lat:36.6513, lng:138.1810, transportId:3, comment:"深夜バス「アルペン」",             defunct:false, defunctNote:null },
-  { id:28, seriesId:"saikoro1", origin:"新大阪", destination:"梅田阪急ホテル", prefecture:"大阪府",   region:"近畿",     lat:34.7055, lng:135.4983, transportId:7, comment:"頼むから出して",                   defunct:false, defunctNote:null },
-  { id:29, seriesId:"saikoro1", origin:"新大阪", destination:"千歳",           prefecture:"北海道",   region:"北海道",   lat:42.8233, lng:141.6511, transportId:1, comment:"直行便",                           defunct:false, defunctNote:null },
-  { id:30, seriesId:"saikoro1", origin:"新大阪", destination:"名古屋",         prefecture:"愛知県",   region:"東海",     lat:35.1815, lng:136.9066, transportId:2, comment:"始発待ちます新幹線",               defunct:false, defunctNote:null },
+  { id:25, seriesId:"saikoro1", origin:"大阪", destination:"東京",           prefecture:"東京都",   region:"関東",     lat:35.6812, lng:139.7671, transportId:5, comment:"寝台特急「あさかぜ」",             defunct:true,  defunctNote:"2005年廃止" },
+  { id:26, seriesId:"saikoro1", origin:"大阪", destination:"新潟",           prefecture:"新潟県",   region:"甲信越",   lat:37.9161, lng:139.0364, transportId:5, comment:"寝台急行「きたぐに」",             defunct:true,  defunctNote:"2013年廃止" },
+  { id:27, seriesId:"saikoro1", origin:"大阪", destination:"長野",           prefecture:"長野県",   region:"甲信越",   lat:36.6513, lng:138.1810, transportId:3, comment:"深夜バス「アルペン」",             defunct:false, defunctNote:null },
+  { id:28, seriesId:"saikoro1", origin:"大阪", destination:"一泊",          prefecture:"大阪府",   region:"近畿",     lat:34.7055, lng:135.4983, transportId:7, comment:"頼むから出して",                   defunct:false, defunctNote:null },
+  { id:29, seriesId:"saikoro1", origin:"大阪", destination:"千歳",           prefecture:"北海道",   region:"北海道",   lat:42.8233, lng:141.6511, transportId:1, comment:"直行便",                           defunct:false, defunctNote:null },
+  { id:30, seriesId:"saikoro1", origin:"大阪", destination:"名古屋",         prefecture:"愛知県",   region:"東海",     lat:35.1815, lng:136.9066, transportId:2, comment:"始発待ちます新幹線",               defunct:false, defunctNote:null },
 
   // ============================================================
   // Leg 1-6  新潟発（ゴール目前）
@@ -109,7 +109,7 @@ export const ROUTES_ORIGINAL = [
   // ============================================================
   // Leg 2-5  高知発
   // ============================================================
-  { id:61, seriesId:"saikoro2", origin:"高知",    destination:"高知一泊", prefecture:"高知県",   region:"四国",     lat:33.5597, lng:133.5311, transportId:7, comment:"龍馬まつりもやっている",                       defunct:false, defunctNote:null },
+  { id:61, seriesId:"saikoro2", origin:"高知",    destination:"一泊",     prefecture:"高知県",   region:"四国",     lat:33.5597, lng:133.5311, transportId:7, comment:"龍馬まつりもやっている",                       defunct:false, defunctNote:null },
   { id:62, seriesId:"saikoro2", origin:"高知",    destination:"高松",     prefecture:"香川県",   region:"四国",     lat:34.3428, lng:134.0462, transportId:6, comment:"いや、少しでも戻ろう",                         defunct:false, defunctNote:null },
   { id:63, seriesId:"saikoro2", origin:"高知",    destination:"大阪",     prefecture:"大阪府",   region:"近畿",     lat:34.6937, lng:135.5023, transportId:4, comment:"もう少し戻ろう(フェリー9時間)",                defunct:true, defunctNote:"2015年廃止。バスで代替を推奨" },
   { id:64, seriesId:"saikoro2", origin:"高知",    destination:"東京",     prefecture:"東京都",   region:"関東",     lat:35.6812, lng:139.7671, transportId:4, comment:"気長に戻ろう(フェリー20時間)",                 defunct:true, defunctNote:"2001年廃止。バスか新幹線で代替を推奨" },
@@ -132,7 +132,7 @@ export const ROUTES_ORIGINAL = [
   { id:73, seriesId:"saikoro2", origin:"白石島",  destination:"千歳",       prefecture:"北海道",   region:"北海道",   lat:42.8233, lng:141.6511, transportId:1, comment:"まだ間に合う",                     defunct:false, defunctNote:null },
   { id:74, seriesId:"saikoro2", origin:"白石島",  destination:"東京",       prefecture:"東京都",   region:"関東",     lat:35.6812, lng:139.7671, transportId:2, comment:"とりあえず岡山戻って新幹線",                   defunct:false, defunctNote:null },
   { id:75, seriesId:"saikoro2", origin:"白石島",  destination:"新潟",       prefecture:"新潟県",   region:"甲信越",   lat:37.9161, lng:139.0364, transportId:2, comment:"新幹線ざんまい",                               defunct:false, defunctNote:null },
-  { id:76, seriesId:"saikoro2", origin:"白石島",  destination:"白石島一泊", prefecture:"岡山県",   region:"中国",     lat:34.3614, lng:133.5942, transportId:7, comment:"",                                             defunct:false, defunctNote:null },
+  { id:76, seriesId:"saikoro2", origin:"白石島",  destination:"一泊",       prefecture:"岡山県",   region:"中国",     lat:34.3614, lng:133.5942, transportId:7, comment:"白石島",                                             defunct:false, defunctNote:null },
   { id:77, seriesId:"saikoro2", origin:"白石島",  destination:"徳島",       prefecture:"徳島県",   region:"四国",     lat:34.0658, lng:134.5593, transportId:6, comment:"瀬戸大橋を渡って四国に戻る",                   defunct:false, defunctNote:null },
   { id:78, seriesId:"saikoro2", origin:"白石島",  destination:"松江",       prefecture:"島根県",   region:"中国",     lat:35.4723, lng:133.0505, transportId:6, comment:"瀬戸内海の次は日本海",                         defunct:false, defunctNote:null },
 
@@ -144,7 +144,7 @@ export const ROUTES_ORIGINAL = [
   { id:81, seriesId:"saikoro2", origin:"徳島",    destination:"東京",       prefecture:"東京都",   region:"関東",     lat:35.6812, lng:139.7671, transportId:1, comment:"最終便(千歳直行もうない)",                     defunct:false, defunctNote:null },
   { id:82, seriesId:"saikoro2", origin:"徳島",    destination:"岡山",       prefecture:"岡山県",   region:"中国",     lat:34.6617, lng:133.9350, transportId:6, comment:"とりあえず本州(うずしお)",                     defunct:false, defunctNote:null },
   { id:83, seriesId:"saikoro2", origin:"徳島",    destination:"淡路島",     prefecture:"兵庫県",   region:"近畿",     lat:34.3833, lng:134.7500, transportId:3, comment:"もう一度島めぐり",                             defunct:false, defunctNote:null },
-  { id:84, seriesId:"saikoro2", origin:"徳島",    destination:"徳島一泊",   prefecture:"徳島県",   region:"四国",     lat:34.0658, lng:134.5593, transportId:7, comment:"もう限界です",                                 defunct:false, defunctNote:null },
+  { id:84, seriesId:"saikoro2", origin:"徳島",    destination:"一泊",       prefecture:"徳島県",   region:"四国",     lat:34.0658, lng:134.5593, transportId:7, comment:"もう限界です 徳島",                                 defunct:false, defunctNote:null },
 
   // ============================================================
   // Leg 2-9  徳島発
@@ -222,10 +222,10 @@ export const ROUTES_ORIGINAL = [
   { id:128, seriesId:"saikoro3", origin:"ハウステンボス", destination:"大阪",       prefecture:"大阪府",   region:"近畿",     lat:34.6937, lng:135.5023, transportId:2, comment:"博多に戻って新幹線",                         defunct:false, defunctNote:null },
   { id:129, seriesId:"saikoro3", origin:"ハウステンボス", destination:"対馬",       prefecture:"長崎県",   region:"九州沖縄", lat:34.2009, lng:129.2895, transportId:1, comment:"韓国はすぐそこ",                             defunct:false, defunctNote:null },
   { id:130, seriesId:"saikoro3", origin:"ハウステンボス", destination:"鹿児島",     prefecture:"鹿児島県", region:"九州沖縄", lat:31.5966, lng:130.5571, transportId:2, comment:"ついに最南端",                               defunct:false, defunctNote:null },
-  { id:131, seriesId:"saikoro3", origin:"鹿児島", destination:"一泊", prefecture:"鹿児島県", region:"九州沖縄", lat:31.5966, lng:130.5571, transportId:7, comment:"鹿児島", defunct:false, defunctNote:null},
+    // ============================================================
+  // saikoro3 - Leg 3-8 鹿児島発
   // ============================================================
-  // saikoro3 - Leg 3-8 鹿児島発（132〜136 再提示）
-  // ============================================================
+  { id:131, seriesId:"saikoro3", origin:"鹿児島",   destination:"一泊", prefecture:"鹿児島県", region:"九州沖縄", lat:31.5966, lng:130.5571, transportId:7, comment:"鹿児島",                     defunct:false, defunctNote:null},
   { id:132, seriesId:"saikoro3", origin:"鹿児島",   destination:"岡山", prefecture:"岡山県",   region:"中国",     lat:34.6618, lng:133.9344, transportId:5, comment:"まだまだ移動「寝台特急なは」", defunct:false, defunctNote:null },
   { id:133, seriesId:"saikoro3", origin:"鹿児島",   destination:"東京", prefecture:"東京都",   region:"関東",     lat:35.6812, lng:139.7671, transportId:1, comment:"ANA630便",                     defunct:false, defunctNote:null },
   { id:134, seriesId:"saikoro3", origin:"鹿児島",   destination:"宮崎", prefecture:"宮崎県",   region:"九州沖縄", lat:31.9111, lng:131.4239, transportId:6, comment:"きりしま11号",                 defunct:false, defunctNote:null },

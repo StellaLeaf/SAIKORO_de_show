@@ -51,7 +51,7 @@ export default function App() {
     </header>
     {/* 出発地選択 */}
     <section className="mb-4 flex gap-2 justify-center flex-wrap">
-      {["東京", "大阪", "札幌", "福岡", "名古屋"].map(city => (
+      {["東京", "大阪", "京都", "博多", "名古屋"].map(city => (
         <button
           key={city}
           onClick={() => dice.setOrigin(city)}
